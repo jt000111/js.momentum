@@ -1,37 +1,52 @@
-const ToDoForm = document.getElementById("todo-form");
-const ToDoInput = ToDoForm.querySelector("input");
-const ToDoList = document.getElementById("todo-list");
+const toDoForm = document.getElementById("todo-form");
+const toDoInput = document.querySelector("#todo-form input");
+const toDoList = document.getElementById("todo-list");
 
-const toDos = [];
+const TODOS_KEY = "todos";
+
+let toDos = [];
 
 function saveToDos() {
-  localStorage.setItem("todos", JSON.stringify(toDos));
+  localStorage.setItem(TODOS_KEY, JSON.stringify(toDos));
 }
 
 function deleteToDo(event) {
   const li = event.target.parentElement;
   li.remove();
+  toDos = toDos.filter((items) => items.id != parseInt(li.id));
+  saveToDos();
 }
-
-function paintToDo(newToDo) {
+function paintToDo(newTodo) {
   const li = document.createElement("li");
+  li.id = newTodo.id;
   const span = document.createElement("span");
-  span.innerText = newToDo;
+  span.innerText = newTodo.text;
   const button = document.createElement("button");
   button.innerText = "❌";
   button.addEventListener("click", deleteToDo);
   li.appendChild(span);
   li.appendChild(button);
-  ToDoList.appendChild(li);
+  toDoList.appendChild(li);
 }
-
 function handleToDoSubmit(event) {
   event.preventDefault();
-  const newTodo = ToDoInput.value;
-  ToDoInput.value = "";
-  toDos.push(newTodo);
-  paintToDo(newTodo);
+  const newTodo = toDoInput.value;
+  toDoInput.value = "";
+  const newTodoObj = {
+    text: newTodo,
+    id: Date.now(),
+  };
+  toDos.push(newTodoObj);
+  paintToDo(newTodoObj);
   saveToDos();
 }
 
-ToDoForm.addEventListener("submit", handleToDoSubmit);
+toDoForm.addEventListener("submit", handleToDoSubmit);
+
+const savedToDos = localStorage.getItem(TODOS_KEY);
+
+if (savedToDos !== null) {
+  const parsedToDos = JSON.parse(savedToDos);
+  toDos = parsedToDos;
+  parsedToDos.forEach(paintToDo);
+}
