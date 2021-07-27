@@ -1,5 +1,8 @@
+@import "reset.css";
+
 .hidden {
   display: none;
+  z-index: -2;
 }
 
 body {
@@ -34,11 +37,12 @@ img {
 #greeting {
   font-size: 75px;
   top: 100px;
+  font-weight: 500;
 }
 
 #clock {
   font-size: 30px;
-  padding-bottom: 10px;
+  margin-top: 15px;
 }
 
 #quote {
@@ -46,11 +50,11 @@ img {
 }
 
 #weather {
-  top: 70px;
+  top: 50px;
 }
 
 #todo-list {
-  bottom: 50px;
+  top: 700px;
 }
 
 .typing {
@@ -61,8 +65,40 @@ img {
 
 ul {
   list-style: none;
+  font-size: 30px;
 }
 
 li span {
   margin-right: 10px;
+}
+
+#todo-form {
+  bottom: 250px;
+}
+
+#todo-form input {
+  background: transparent;
+  color: white;
+  border: none;
+  border-bottom: 2px solid white;
+  border-radius: 10px;
+  font-size: 30px;
+}
+
+#login-form {
+  top: 400px;
+  font-size: 50px;
+  font-weight: 500;
+}
+
+.login-input {
+  width: 400px;
+  height: 50px;
+  background: transparent;
+  color: white;
+  border: none;
+  border-bottom: 2px solid white;
+  border-radius: 10px;
+  font-size: 50px;
+  font-family: "Courier New", Courier, monospace;
 }
